@@ -38,7 +38,7 @@ def questionnaire(request):
         'title': 'Questionnaire',
         'survey': survey,
     }
-    return render(request, 'myapp/test.html', context)
+    return render(request, 'myapp/survey.html', context)
 
 
 def login(request):
