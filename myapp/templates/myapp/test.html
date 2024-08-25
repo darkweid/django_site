@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="survey-container">
+        <h1>{{ survey.title }}</h1>
+        <p class="description">{{ survey.description|linebreaksbr }}</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for question in survey.questions.all %}
+                <div class="question">
+                    <h2>{{ question.text }}</h2>
+                    {% if question.question_type == 'text' %}
+                        <div class="form-group">
+                            <textarea name="question_{{ question.id }}" class="form-control auto-expand" rows="1"
+                                      required></textarea>
+                        </div>
+                    {% elif question.question_type == 'single_choice' %}
+                        {% for choice in question.choices.all %}
+                            <div class="form-group">
+                                <label>
+                                    <input type="radio" name="question_{{ question.id }}" value="{{ choice.id }}"
+                                           required>
+                                    {{ choice.text }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    {% elif question.question_type == 'multiple_choice' %}
+                        {% for choice in question.choices.all %}
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="question_{{ question.id }}" value="{{ choice.id }}">
+                                    {{ choice.text }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn">Отправить</button>
+        </form>
+    </div>
+{% endblock %}

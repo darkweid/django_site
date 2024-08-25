@@ -1,0 +1,57 @@
+/*
+    DJANGO Admin styles
+*/
+html[data-theme="light"],
+:root {
+    --primary: #f6d0e1;
+    --secondary: #f6d0e1;
+    --accent: #3f3d54;
+    --primary-fg: #3f3d54;
+
+    --body-fg: #3f3d54;
+    --body-bg: #f3ebe1;
+    --body-quiet-color: #3f3d54;
+    --body-medium-color: #312f41;
+    --body-loud-color: #1a1923;
+
+    --header-color: #3f3d54;
+    --header-branding-color: var(--accent);
+    --header-bg: var(--secondary);
+    --header-link-color: var(--primary-fg);
+
+    --breadcrumbs-fg: #6f5b98;
+    --breadcrumbs-link-fg: #6f5b98;
+    --breadcrumbs-bg: var(--primary);
+
+    --link-fg: var(--body-medium-color);
+    --link-hover-color: #6f5b98;
+    --link-selected-fg: var(--secondary);
+
+    --hairline-color: #dcd5cc;
+    --border-color: #ccc;
+
+    --error-fg: #ba2121;
+
+    --message-success-bg: #dfd;
+    --message-warning-bg: #ffc;
+    --message-error-bg: #ffefef;
+
+    --darkened-bg: #f8f8f8; /* A bit darker than --body-bg */
+    --selected-bg: #e4e4e4; /* E.g. selected table cells */
+    --selected-row: rgba(246, 208, 225, 0.44);
+
+    --button-fg: #fff;
+    --button-bg: var(--secondary);
+    --button-hover-bg: #6f5b98;
+    --default-button-bg: #6f5b98;
+    --default-button-hover-bg: var(--secondary);
+    --close-button-bg: #747474;
+    --close-button-hover-bg: #333;
+    --delete-button-bg: #ba2121;
+    --delete-button-hover-bg: #a41515;
+
+    --object-tools-fg: var(--button-fg);
+    --object-tools-bg: var(--close-button-bg);
+    --object-tools-hover-bg: var(--close-button-hover-bg);
+}
+
