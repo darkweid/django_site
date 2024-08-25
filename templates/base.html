@@ -1,0 +1,46 @@
+{#<link type="text/css" href="{% static 'myapp/css/styles.css' %}" rel="stylesheet"/>#}
+
+{#colors = #f6d0e1 (pink), #cfc2d3 (orchid), #6f5b98 (ultraviolet), #bed392 (lettuce green), #ede992 (yellow iris),#}
+{# #f7b3a8 (peach), #3f3d54 (astral aura(dark)), #f3ebe1 (gardenia(bright))#}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'myapp/css/styles.css' %}">
+</head>
+<body>
+
+<!-- Верхняя полоса с кнопками -->
+<div class="top-bar">
+    <a href="{% url 'home' %}" class="logo">NO PRESSURE</a>
+    <a href="#">Оставить заявку</a>
+    <a href="{% url 'login' %}">Личный кабинет</a>
+</div>
+
+<!-- Основной контент -->
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+{% block extra_js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var textareas = document.querySelectorAll('.auto-expand');
+
+            textareas.forEach(function (textarea) {
+                textarea.addEventListener('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+            });
+        });
+    </script>
+{% endblock %}
+</body>
+</html>
