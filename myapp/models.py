@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import EmailValidator
+import uuid
 
 
 class Survey(models.Model):
@@ -26,8 +28,10 @@ class Question(models.Model):
     ]
 
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, related_name='questions')
-    text = models.CharField(max_length=255, verbose_name="Текст вопроса")
+    text = models.TextField(verbose_name="Текст вопроса")
+    description = models.TextField(verbose_name="Описание", blank=True)
     question_type = models.CharField(max_length=20, choices=QUESTION_TYPES, default=TEXT, verbose_name="Тип вопроса")
+    is_required = models.BooleanField(default=True, verbose_name="Обязательный вопрос")
 
     def __str__(self):
         return self.text
@@ -49,14 +53,47 @@ class Choice(models.Model):
         verbose_name_plural = 'Варианты ответов'
 
 
-class Response(models.Model):
+class SurveyResponse(models.Model):
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, related_name='responses')
+    response_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    name = models.CharField(max_length=255, verbose_name="Имя")
+    contact = models.CharField(max_length=255, verbose_name="Телефон или Telegram")
+    location = models.CharField(max_length=255, verbose_name="Город или часовой пояс")
+    email = models.EmailField(verbose_name="Email", validators=[EmailValidator()])
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата прохождения")
+
+    def __str__(self):
+        return f"Ответ на опрос: {self.survey.title} (ID: {self.response_id})"
+
+    class Meta:
+        verbose_name = 'Ответ на опрос'
+        verbose_name_plural = 'Ответы на опросы'
+
+
+class QuestionResponse(models.Model):
+    survey_response = models.ForeignKey(SurveyResponse, on_delete=models.CASCADE, related_name='question_responses')
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='responses')
-    text = models.TextField(verbose_name="Ответ пользователя", blank=True)
+    text_response = models.TextField(verbose_name="Текстовый ответ", blank=True)
     selected_choices = models.ManyToManyField(Choice, blank=True, related_name='responses')
 
     def __str__(self):
         return f"Ответ на вопрос: {self.question.text}"
 
     class Meta:
-        verbose_name = 'Ответ пользователя'
-        verbose_name_plural = 'Ответы пользователей'
+        verbose_name = 'Ответ на вопрос'
+        verbose_name_plural = 'Ответы на вопросы'
+
+
+class ConsultationRequest(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Имя")
+    email = models.EmailField(verbose_name='Email', validators=[EmailValidator()])
+    phone = models.CharField(max_length=100, verbose_name="Телефон или Telegram")
+    message = models.TextField(verbose_name="Сообщение")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Отправлено")
+
+    def __str__(self):
+        return f"Request from {self.name} ({self.email})"
+
+    class Meta:
+        verbose_name = 'Заявка на консультацию'
+        verbose_name_plural = 'Заявки на консультации'
