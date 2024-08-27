@@ -1,0 +1,32 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+    <h1>Ответы на опрос: {{ survey.title }}</h1>
+
+    {% for response in responses %}
+        <h2>Ответ #{{ forloop.counter }} ({{ response.created_at }})</h2>
+        <p><strong>Имя:</strong> {{ response.name }}</p>
+        <p><strong>Email:</strong> {{ response.email }}</p>
+        <p><strong>Контакт:</strong> {{ response.contact }}</p>
+        <p><strong>Местоположение:</strong> {{ response.location }}</p>
+
+        <h3>Ответы на вопросы:</h3>
+        <ul>
+            {% for question_response in response.question_responses.all %}
+                <li>
+                    <strong>{{ question_response.question.text }}</strong><br>
+                    {% if question_response.question.question_type == 'text' %}
+                        {{ question_response.text_response }}
+                    {% else %}
+                        {% for choice in question_response.selected_choices.all %}
+                            {{ choice.text }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <hr>
+    {% empty %}
+        <p>На этот опрос пока нет ответов.</p>
+    {% endfor %}
+{% endblock %}
