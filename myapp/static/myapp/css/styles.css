@@ -97,11 +97,12 @@ h1 {
     line-height: 1.6;
 }
 
-.buttons a {
+.buttons a, .buttons button  {
     display: inline-block;
     padding: 10px 20px;
     margin: 10px;
     font-size: 1.2em;
+    font-weight: normal;
     color: #f3ebe1;
     background-color: #6f5b98;
     border-radius: 10px;
@@ -110,29 +111,10 @@ h1 {
     box-shadow: 0 0px 10px rgba(35, 35, 35, 0.2);
 }
 
-.buttons a:hover {
+.buttons a:hover, .buttons button:hover {
     transform: scale(1.05);
     box-shadow: 0px 0px 15px rgb(35, 35, 35, 0.7);
 }
-
-/*Reviews*/
-
-/*.reviews-grid {*/
-/*    display: flex;*/
-/*    flex-wrap: wrap;*/
-/*    gap: 20px; !* Убираем промежутки между элементами *!*/
-/*}*/
-
-/*.review-item {*/
-/*    !*flex: 1 1 150px; !* Начальная ширина и возможность растягивания *!*!*/
-/*    max-width: 350px; !* Максимальная ширина элемента *!*/
-/*    margin: 0; !* Убираем внешние отступы *!*/
-/*    padding: 0; !* Убираем внутренние отступы *!*/
-/*    margin: 0 auto;*/
-/*    */
-/*    !*align-content: center;*!*/
-/*    !*align-items: center;*!*/
-/*}*/
 
 
 /* Контейнер для отзывов */
@@ -186,60 +168,6 @@ h1 {
     margin-top: 20px;
 }
 
-.survey-container h1 {
-    color: #3f3d54;
-    margin-bottom: 10px;
-}
-
-.survey-container .description {
-    margin-bottom: 30px;
-    color: #3f3d54;
-}
-
-.question {
-    margin-bottom: 30px;
-    padding: 0px;
-    padding-top: 20px;
-    background-color: #f3ebe1;
-    border-radius: 5px;
-    border: solid 3px #f6d0e1;
-    box-shadow: 0 0px 15px rgba(0, 0, 0, 0.2);
-
-}
-
-.question h2 {
-    margin-top: 0;
-    font-size: 18px;
-    color: #3f3d54;
-}
-
-.form-control {
-    width: 80%;
-    height: 20px;
-    padding: 15px;
-    border: solid 1px #f3ebe1;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: #f3ebe1;
-    color: #3f3d54;
-    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.2);
-
-}
-
-.auto-expand {
-    min-height: 2em;
-    overflow: hidden;
-    resize: none;
-    line-height: 22px;
-    padding: 5px;
-    box-sizing: border-box;
-    width: 85%;
-}
-
-.form-group {
-    margin-bottom: 30px;
-}
-
 
 .btn {
     background-color: #6f5b98;
@@ -257,6 +185,224 @@ h1 {
     box-shadow: 0px 0px 15px rgba(35, 35, 35, 0.7);
 }
 
+/* Стили для модального окна */
+.openModal {
+    display: inline-block;
+    background-color: #6f5b98;
+    color: #f3ebe1;
+    padding: 10px 20px;
+    margin-left: 15px;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.openModal:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 15px rgb(35, 35, 35, 0.7);
+}
+
+
+#consultationModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.modal.show {
+    display: block;
+}
+
+.modal-content {
+    background-color: #f3ebe1;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Стили для формы */
+#consultationForm {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #3f3d54;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #6f5b98;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #5a4a7d;
+}
+
+/*FORMS*/
+
+/* Стили для контейнера блока вопроса */
+.question-block {
+    border: 1px solid #f3ebe1; /* Цвет и толщина рамки */
+    border-radius: 4px; /* Скругление углов */
+    padding: 10px; /* Отступ внутри блока */
+    padding-inline: 70px;
+    margin-bottom: 40px; /* Отступ снизу */
+    background-color: #f3ebe1; /* Фоновый цвет */
+    box-shadow: 0px 0px 10px rgba(35, 35, 35, 0.5);
+
+}
+
+/* Стили для текста вопросов */
+.question-text {
+    font-size: 18px; /* Размер шрифта */
+    color: #3f3d54; /* Цвет текста */
+    margin-bottom: 5px; /* Отступ снизу */
+    display: block; /* Чтобы отступы работали */
+}
+
+/* Стили для описания вопросов */
+.question-description {
+    font-size: 15px; /* Размер шрифта */
+    color: rgba(63, 61, 84, 0.8); /* Цвет текста */
+    margin-bottom: 10px; /* Отступ снизу */
+    display: block; /* Чтобы отступы работали */
+}
+
+/* Стили для текстового поля */
+.custom-textarea {
+    width: 70%;
+    min-height: 40px;
+    height: 40px; /* Устанавливаем фиксированную начальную высоту */
+    font-size: 15px;
+    resize: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow-y: hidden; /* Скрываем полосу прокрутки по умолчанию */
+}
+
+
+/* Фокусное состояние текстового поля */
+.custom-textarea:focus {
+    /*background: #dedede;*/
+    border: 1px solid;
+    border-color: #6f5b98;
+}
+
+
+.custom-checkbox-select {
+    display: block; /* Размещаем каждый чекбокс с текстом на новой строке */
+    margin-bottom: 10px; /* Отступ между чекбоксами */
+
+}
+
+.custom-checkbox-select label {
+    display: flex;
+    align-items: center; /* Выравниваем чекбокс и текст по вертикали */
+    gap: 5px; /* Пространство между чекбоксом и текстом */
+    box-shadow: 0px 0px 3px rgba(35, 35, 35, 0.08);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    border-radius: 4px;
+
+
+}
+
+.custom-checkbox-select label:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 0px 5px rgba(35, 35, 35, 0.4);
+
+}
+
+
+.custom-checkbox-select input[type="checkbox"] {
+    margin-top: 10px; /* Тонкая настройка, если требуется */
+}
+
+
+/*User contact form*/
+/* Стили для всех пяти полей */
+input[name="name"],
+input[name="contact"],
+input[name="location"],
+input[name="email"] {
+    background-color: #f0f0f0;
+    border: 1px solid #f6f6f6;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 50%;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px rgba(35, 35, 35, 0.5);
+
+}
+
+
+/* Стили для меток (label) этих полей */
+label[for="id_name"],
+label[for="id_contact"],
+label[for="id_location"],
+label[for="id_email"] {
+    font-weight: bold;
+    color: #3f3d54;
+    margin-bottom: 5px;
+    display: block;
+}
+
+
 @media (max-width: 768px) {
     .logo {
         font-size: 1em;
@@ -273,6 +419,13 @@ h1 {
         margin-left: 8px;
         font-size: 0.7em;
         padding: 9px 8px;
+    }
+
+    .openModal {
+        margin-left: 8px;
+        font-size: 0.7em;
+        padding: 9px 8px;
+
     }
 }
 
