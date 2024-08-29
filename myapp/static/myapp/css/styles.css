@@ -97,7 +97,7 @@ h1 {
     line-height: 1.6;
 }
 
-.buttons a, .buttons button  {
+.buttons a, .buttons button {
     display: inline-block;
     padding: 10px 20px;
     margin: 10px;
@@ -119,26 +119,25 @@ h1 {
 
 /* Контейнер для отзывов */
 
-
 .reviews-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-auto-rows: auto;
     gap: 10px;
+    row-gap: 60px;
 }
 
 .review-item {
     break-inside: avoid;
     -webkit-column-break-inside: avoid;
     box-shadow: 0px 0px 5px rgb(35, 35, 35, 0.4);
-    background-color: #141412; /* Добавьте стили для ваших элементов */
+    background-color: #141412;
     padding: 5px;
     border-radius: 8px;
     border: 4px solid #6f5b98;
-    width: 300px;
+    width: 350px;
     margin: 0 auto;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-
 }
 
 .review-item img {
@@ -150,11 +149,54 @@ h1 {
 .review-item:hover {
     transform: scale(1.05);
     box-shadow: 0px 0px 10px rgb(35, 35, 35, 0.6);
+}
+
+/* Стили для видео-кружков */
+.review-item-video {
+    width: 350px; /* Размер видео */
+    height: 400px; /* Автоматическая высота */
+    display: block;
+    border-radius: 50%; /* Применение радиуса к самому видео */
+    margin: 0 auto;
+    position: relative;
+}
+
+.review-item-video video {
+    width: 100%; /* Видео будет занимать всю ширину контейнера */
+    height: auto;
+    display: block;
+    border: 4px solid #5a4a7d;
+    border-radius: 50%; /* Применение радиуса к самому видео */
+    box-shadow: 0px 0px 10px rgb(35, 35, 35, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 }
 
-.form-group {
-    margin-bottom: 15px;
+.review-item-video video:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 10px rgb(35, 35, 35, 0.6);
+}
+
+/*.form-group {*/
+/*    margin-bottom: 15px;*/
+/*}*/
+.telegram-link {
+    display: inline-block;
+    margin-bottom: auto; /* Автоматическое смещение кнопки вниз */
+    font-size: 0.9em;
+    color: #f3ebe1;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 20px;
+    background-color: #6f5b98;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 0px 5px rgba(35, 35, 35, 0.4);
+}
+
+.telegram-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 10px rgba(35, 35, 35, 0.6);
 }
 
 
@@ -403,7 +445,7 @@ label[for="id_email"] {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 780px) {
     .logo {
         font-size: 1em;
         padding: 3px 3px;
@@ -426,6 +468,32 @@ label[for="id_email"] {
         font-size: 0.7em;
         padding: 9px 8px;
 
+    }
+
+    .reviews-grid {
+        grid-template-columns: 1fr; /* Сетка из одного столбца */
+        justify-items: center; /* Центрируем элементы по горизонтали */
+    }
+
+    .review-item, .review-item-video {
+        width: 90%; /* Устанавливаем ширину контейнера в 90% от экрана */
+    }
+
+    /*.review-item a {*/
+    /*    padding: 4px 8px; !* Уменьшенное расстояние внутри кнопки *!*/
+    /*    font-size: 12px; !* Уменьшенный размер шрифта *!*/
+    /*}*/
+}
+
+@media (min-width: 950px) and (max-width: 1150px) {
+    .reviews-grid {
+        grid-template-columns: repeat(2, 1fr); /* Два столбца вместо четырех */
+        gap: 20px; /* Расстояние между элементами */
+    }
+
+    .review-item,
+    .review-item-video {
+        margin-bottom: 20px; /* Расстояние между рядами */
     }
 }
 
