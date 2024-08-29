@@ -3,54 +3,41 @@
     {% load static %}
     <h1>{{ title }}</h1>
     <div class="reviews-grid">
-        <!-- Пример скриншотов отзывов -->
+        <!-- Видео-кружки из Telegram -->
+        <div class="review-item-video">
+            <video controls>
+                <source src="{% static 'myapp/videos/circle_1.mp4' %}" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+            <a href="#" class="telegram-link">Спросить лично в Telegram</a>
+        </div>
+
+        <!-- отзывы-картинки -->
         <div class="review-item">
             <img src="{% static 'myapp/images/review_1.jpeg' %}" alt="Отзыв 1">
-        </div>
-        <div class="review-item">
-            <img src="{% static 'myapp/images/review_2.jpeg' %}" alt="Отзыв 2">
-        </div>
-        <div class="review-item">
-            <img src="{% static 'myapp/images/review_3.jpeg' %}" alt="Отзыв 3">
-        </div>
-        <div class="review-item">
-            <img src="{% static 'myapp/images/review_4.jpeg' %}" alt="Отзыв 4">
+            <a href="#" class="telegram-link">Спросить лично в Telegram</a>
         </div>
 
         <div class="review-item">
-            <img src="{% static 'myapp/images/review_3double.jpeg' %}" alt="Отзыв 7">
+            <img src="{% static 'myapp/images/review_2.jpeg' %}" alt="Отзыв 2">
+            <a href="#" class="telegram-link">Спросить лично в Telegram</a>
         </div>
+
         <div class="review-item">
-            <img src="{% static 'myapp/images/review_4double.jpeg' %}" alt="Отзыв 8">
+            <img src="{% static 'myapp/images/review_3.jpeg' %}" alt="Отзыв 3">
+            <a href="#" class="telegram-link">Спросить лично в Telegram</a>
         </div>
-{#        <div class="review-item">#}
-{#            <img src="{% static 'myapp/images/review_1double.jpeg' %}" alt="Отзыв 5">#}
-{#        </div>#}
+
         <div class="review-item">
-            <img src="{% static 'myapp/images/review_2double.jpeg' %}" alt="Отзыв 6">
+            <img src="{% static 'myapp/images/review_4.jpeg' %}" alt="Отзыв 4">
+            <a href="#" class="telegram-link">Спросить лично в Telegram</a>
         </div>
-        <!-- Добавь больше скриншотов по мере необходимости -->
+
+
     </div>
 
 {% endblock %}
 
-<style>
-    .reviews-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        grid-gap: 15px;
-    }
 
-    .review-item img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s ease-in-out;
-    }
 
-    .review-item img:hover {
-        transform: scale(1.05);
-    }
-</style>
+
