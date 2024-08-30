@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static 'myapp/css/styles.css' %}">
     <!-- Подключение jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% block extra_styles %} {% endblock %}
 </head>
 <body>
 
@@ -50,7 +51,7 @@
             </form>
         </div>
     </div>
-    <a href="{% url 'login' %}">Личный кабинет</a>
+    <a href="{% url 'lk' %}">Личный кабинет</a>
 </div>
 
 <!-- Основной контент -->
