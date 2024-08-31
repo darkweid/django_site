@@ -1,4 +1,5 @@
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -31,6 +32,7 @@ def contact(request):
 def reviews(request):
     data = {'title': 'Отзывы'}
     return render(request, 'myapp/reviews.html', context=data)
+
 
 def questionnaire(request, survey_id=1):
     survey = get_object_or_404(Survey, id=survey_id)
@@ -66,14 +68,15 @@ def questionnaire(request, survey_id=1):
     return render(request, 'myapp/survey.html', {'form': form, 'survey': survey})
 
 
-def login(request):
+@login_required()
+def lk(request):
     data = {'title': 'Личный кабинет'}
-    return render(request, 'myapp/login.html', context=data)
+    return render(request, 'myapp/lk.html', context=data)
 
 
 def survey_thank_you(request):
-    return HttpResponse('Good')
-
+    data = {'title': 'Спасибо за прохождение опроса!'}
+    return render(request, 'myapp/survey_thank_you.html', context=data)
 
 
 @staff_member_required
@@ -85,6 +88,7 @@ def survey_responses_view(request, survey_id):
         'survey': survey,
         'responses': responses,
     })
+
 
 def submit_request(request):
     if request.method == "POST":
