@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load static %}
+    <form method="Post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        * Обязательные поля для заполнения
+        <br><br>Уже есть логин и пароль? <a href="{% url 'users:login' %}">Войти</a>
+        <p>
+            <button type="submit">Зарегистрироваться</button>
+        </p>
+    </form>
+    </div>
+{% endblock %}
+
+{% block extra_styles %}
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
+
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        @media (max-width: 780px) {
+            form {
+                width: 90%;
+            }
+        }
+    </style>
+{% endblock %}
