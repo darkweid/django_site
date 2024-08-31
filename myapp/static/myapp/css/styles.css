@@ -308,11 +308,7 @@ label {
     color: #3f3d54;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-#id_password,
-textarea {
+.form-input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -322,16 +318,19 @@ textarea {
 
 button[type="submit"] {
     background-color: #6f5b98;
-    color: white;
-    padding: 10px 20px;
+    color: #f3ebe1;
+    padding: 10px 25px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.5);
 }
 
 button[type="submit"]:hover {
-    background-color: #5a4a7d;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 15px rgb(35, 35, 35, 0.7);
 }
 
 /*FORMS*/
@@ -416,33 +415,42 @@ button[type="submit"]:hover {
 }
 
 
-/*User contact form*/
-/* Стили для всех пяти полей */
-input[name="name"],
-input[name="contact"],
-input[name="location"],
-input[name="email"] {
-    background-color: #f0f0f0;
-    border: 1px solid #f6f6f6;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 15px;
-    width: 50%;
-    font-size: 16px;
-    box-shadow: 0px 0px 10px rgba(35, 35, 35, 0.5);
-
+/*Сообщения*/
+.messages {
+    list-style-type: none; /* Убираем точки перед пунктами списка */
+    padding: 0;
+    margin: 0; /* Убираем отступы */
 }
 
+.messages .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
 
-/* Стили для меток (label) этих полей */
-label[for="id_name"],
-label[for="id_contact"],
-label[for="id_location"],
-label[for="id_email"] {
-    font-weight: bold;
-    color: #3f3d54;
-    margin-bottom: 5px;
-    display: block;
+.messages .alert.success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.messages .alert.info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.messages .alert.warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.messages .alert.error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
 }
 
 /*Ошибки авторизации*/
