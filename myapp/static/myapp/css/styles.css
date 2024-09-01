@@ -3,6 +3,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background-color: #f3ebe1;
     color: #3f3d54;
+    padding-top: 60px;
 }
 
 .top-bar {
@@ -12,6 +13,11 @@ body {
     justify-content: flex-end;
     align-items: center;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
+    position: fixed; /* Изменено: фиксированное позиционирование */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Добавлено: чтобы top-bar был поверх других элементов */
 }
 
 .top-bar a:not(.logo) {
@@ -59,6 +65,7 @@ body {
     padding: 20px;
     text-align: center;
 }
+
 
 h1 {
     font-size: 2.5em;
@@ -214,6 +221,7 @@ h1 {
 .btn {
     background-color: #6f5b98;
     color: #f3ebe1;
+    text-decoration: none;
     border: none;
     padding: 10px 50px;
     font-size: 16px;
@@ -472,17 +480,17 @@ button[type="submit"]:hover {
 .sidebar {
     position: fixed;
     left: 0;
-    top: 0;
-    margin-top: 75px;
+    top: 60px; /* Изменено: отступ сверху равен высоте top-bar */
     width: 200px;
-    height: 100%; /* Занимает всю высоту страницы */
+    height: calc(100% - 60px); /* Изменено: высота с учетом top-bar */
     background-color: #f6d0e1;
     padding: 15px;
     box-shadow: 0 9px 10px rgba(0, 0, 0, 0.3);
+    overflow-y: auto; /* Добавлено: прокрутка, если содержимое не помещается */
 }
 
 .sidebar ul {
-    margin-top: 200px;
+    margin-top: 20px; /* Изменено: уменьшен отступ сверху */
     list-style-type: none;
     padding: 0;
 }
@@ -513,8 +521,54 @@ button[type="submit"]:hover {
     padding: 20px;
 }
 
-body > div.container > form {
-    /*width: 30%;*/
+
+/* Стили для контейнера грамматических материалов */
+.grammar-material {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grammar-material:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Стили для заголовка материала */
+.grammar-material h3 {
+    color: #3f3d54;
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* Стили для описания материала */
+.grammar-material p {
+    color: #3f3d54;
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Стили для изображения */
+.grammar-material img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+/* Стили для сообщения об отсутствии материалов */
+p:empty + p {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
 }
 
 
@@ -526,12 +580,15 @@ body > div.container > form {
     }
 
     .top-bar {
+        width: 100%;
+        overflow-x: hidden;
+        box-sizing: border-box;
         justify-content: flex-end;
         padding: 7px 5px;
     }
 
     .top-bar a:not(.logo) {
-        margin-left: 8px;
+        margin-left: 4px;
         font-size: 0.7em;
         padding: 9px 8px;
     }
@@ -552,11 +609,34 @@ body > div.container > form {
         width: 90%; /* Устанавливаем ширину контейнера в 90% от экрана */
     }
 
-    /*.review-item a {*/
-    /*    padding: 4px 8px; !* Уменьшенное расстояние внутри кнопки *!*/
-    /*    font-size: 12px; !* Уменьшенный размер шрифта *!*/
-    /*}*/
+    body {
+        padding-top: 50px; /* Уменьшенный отступ для мобильных устройств */
+    }
+
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        margin-top: 0px; /* Отступ от верхней панели */
+    }
+
+    .container {
+        margin-left: 0;
+        /*padding: 5px;*/
+        width: 90%;
+    }
+
+    .sidebar ul li {
+        width: 90%;
+    }
+
+
+    .review-item, .review-item-video {
+        width: 100%; /* Устанавливаем ширину в 100% от родительского контейнера */
+    }
 }
+
 
 @media (min-width: 950px) and (max-width: 1150px) {
     .reviews-grid {
