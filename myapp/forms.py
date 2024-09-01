@@ -1,5 +1,5 @@
 from django import forms
-from .models import SurveyResponse, Question
+from .models import SurveyResponse, Question, HomeworkSubmission
 from django.utils.safestring import mark_safe
 
 
@@ -84,3 +84,12 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
         description_text = f"<small class='question-description'>{self.question.description}</small><br>" if self.question.description else ""
         html = super().render(name, value, attrs, renderer)
         return mark_safe(f"{question_text}{description_text}{html}</div>")
+
+
+class HomeworkSubmissionForm(forms.ModelForm):
+    class Meta:
+        model = HomeworkSubmission
+        fields = ['answer']
+        widgets = {
+            'answer': forms.Textarea(attrs={'rows': 5, 'cols': 40}),
+        }
