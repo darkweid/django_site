@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'myapp/css/styles_lk.css' %}">
+    <!-- Подключение jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+    </style>
+    {% block extra_styles %} {% endblock %}
+</head>
+<body>
+
+<!-- Верхняя полоса с кнопками -->
+<div class="top-bar">
+    <a href="{% url 'home' %}" class="logo">NO PRESSURE</a>
+    <!-- Кнопка для открытия модального окна -->
+    <button class="openModal">Оставить заявку</button>
+    <!-- Модальное окно -->
+    <div id="consultationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Запись на консультацию</h2>
+            <form id="consultationForm" data-url="{% url 'submit_request' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон или Telegram:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение:</label>
+                    <textarea id="message" name="message"></textarea>
+                </div>
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <a href="{% url 'lk' %}">Личный кабинет</a>
+</div>
+
+<!-- Боковая полоса с кнопками -->
+<div class="sidebar">
+    <ul>
+        <li><a href="{% url 'grammar_sections' %}">Материалы по грамматике</a></li>
+        <li><a href="{% url 'homework_list' %}">Домашние задания</a></li>
+        <li><a href="{% url 'completed_homework' %}">Выполненные домашние задания</a></li>
+        <li><a href="{% url 'users:profile' %}">Мой профиль</a></li>
+        <li><a href="{% url 'users:logout' %}">Выйти из учётной записи</a></li>
+    </ul>
+</div>
+
+<!-- Контент страницы -->
+<div class="container">
+    <h1>{{ title }}</h1>
+    <!-- Сообщения -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="alert {{ message.tags }}">{{ message|safe }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% block content %}
+        <!-- Динамический контент страницы -->
+    {% endblock %}
+</div>
+
+<!-- Скрипты -->
+<script src="{% static 'myapp/js/modal.js' %}"></script>
+{% block extra_js %} {% endblock %}
+
+</body>
+</html>
