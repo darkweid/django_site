@@ -286,6 +286,14 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.styled-input {
+    width: 80%;
+    min-height: 20px;
+    max-height: 200px;
+    min-width: 300px;
+    max-width: 408px;
+}
+
 .close {
     color: #aaa;
     float: right;
@@ -309,6 +317,7 @@ h1 {
 .form-group {
     margin-bottom: 15px;
 }
+
 
 label {
     display: block;

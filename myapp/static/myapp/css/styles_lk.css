@@ -200,6 +200,14 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.styled-input {
+    width: 80%;
+    min-height: 20px;
+    max-height: 200px;
+    min-width: 300px;
+    max-width: 408px;
+}
+
 .close {
     color: #aaa;
     float: right;
@@ -395,18 +403,81 @@ button[type="submit"]:hover {
 
 .homework-item {
     border-radius: 8px;
-    background-color: #fefdff;
+    background-color: #ffffff;
     box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-bottom: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-
 }
 
 .homework-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.homework-item h3 {
+    font-size: 1.75em;
+    color: #3f3d54;
+    margin-bottom: 10px;
+}
+
+.homework-item p {
+    font-size: 1.1em;
+    color: #3f3d54;
+    line-height: 1.6;
+}
+
+.homework-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.homework-item a {
+    display: inline-block;
+    background-color: #6f5b98;
+    color: #f3ebe1;
+    padding: 10px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.homework-item a:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+}
+
+.homework-container {
     border-radius: 8px;
-    background-color: #fefdff;
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
-    transform: scale(1.01);
+    background-color: #ffffff;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
+    padding: 8px;
+
+}
+.homework-container textarea {
+    border-radius: 5px;
+    width: 80%;
+    resize: none;
+}
+
+.submission-item{
+    border-radius: 8px;
+    background-color: #ffffff;
+    padding: 10px;
+    margin-bottom: 40px;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
+
+}
+.submission-item pre{
+    border-radius: 8px;
+    border: 2px solid #5a4a7d;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
 
 }
 
@@ -432,6 +503,7 @@ p:empty + p {
 .page-item {
     margin: 0 5px;
 }
+
 .pagination .page-item {
     display: inline-block; /* Размещает элементы в одну строку */
     margin: 0 5px; /* Добавляет промежуток между кнопками */
