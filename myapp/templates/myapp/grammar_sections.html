@@ -1,0 +1,22 @@
+{% extends 'base_lk.html' %}
+{% load static %}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'myapp/css/grammar_sections.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% if sections_description %}
+        <p class="grammar-section-description">{{ sections_description }}</p>
+    {% endif %}
+
+    <div class="grammar-sections">
+        {% for section in sections %}
+            <a href="{% url 'grammar_materials' section.id %}" class="grammar-section-btn">
+                {{ section.title }}
+            </a>
+        {% empty %}
+            <p>Нет доступных разделов грамматических материалов.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
