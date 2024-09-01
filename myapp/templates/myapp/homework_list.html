@@ -1,0 +1,15 @@
+{% extends 'base_lk.html' %}
+
+{% block content %}
+{% for hw in homework %}
+    <div class="homework-item">
+        <h3>{{ hw.title }}</h3>
+        <p>{{ hw.description }}</p>
+        <img src="{{ hw.image.url }}" alt="{{ hw.title }}">
+        <a href="{% url 'submit_homework' hw.id %}">Выполнить задание</a>
+    </div>
+{% empty %}
+    <p>У вас нет назначенных домашних заданий.</p>
+{% endfor %}
+{% endblock %}
+
