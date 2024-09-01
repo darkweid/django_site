@@ -1,0 +1,81 @@
+.container h1{
+    color: #3f3d54;
+}
+
+/* Стили для контейнера разделов */
+.grammar-sections {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Стили для кнопок разделов */
+.grammar-section-btn {
+    min-width: 20%;
+    background-color: #6f5b98;
+    border: none;
+    color: #f3ebe1;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.grammar-section-btn:hover {
+    box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.7);
+    transform: scale(1.05);
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    .grammar-section-btn {
+        width: 100%;
+    }
+}
+
+/* Стили для заголовка страницы */
+.grammar-sections-title {
+    text-align: center;
+    color: #2d2b3b;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+/* Стили для описания раздела (если оно есть) */
+.grammar-section-description {
+    text-align: center;
+    color: #3f3d54;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    .grammar-section-btn {
+        width: 100%;
+    }
+}
+
+/* Стили для заголовка страницы */
+.grammar-sections-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+/* Стили для описания раздела (если оно есть) */
+.grammar-section-description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
