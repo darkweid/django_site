@@ -124,7 +124,7 @@ def grammar_materials(request, section_id):
     section = get_object_or_404(GrammarSection, id=section_id)
     materials_list = section.materials.all().order_by('order')
 
-    paginator = Paginator(materials_list, 1)  # Показывать по 10 материалов на странице #Todo
+    paginator = Paginator(materials_list, 5)  # Показывать по 5 материалов на странице
     page = request.GET.get('page')
     materials = paginator.get_page(page)
 
