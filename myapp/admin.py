@@ -2,7 +2,9 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 
-from .models import Survey, Question, Choice, SurveyResponse, QuestionResponse, ConsultationRequest
+from .models import (Survey, Question, Choice, SurveyResponse, QuestionResponse,
+                     ConsultationRequest, GrammarMaterial,
+                     Homework, HomeworkSubmission, GrammarSection)
 
 
 @admin.register(Survey)
@@ -54,9 +56,10 @@ class QuestionResponseAdmin(admin.ModelAdmin):
 
     survey_response.short_description = 'Survey Response ID'
 
+
 @admin.register(ConsultationRequest)
 class SurveyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email','phone', 'created_at', 'message')
+    list_display = ('name', 'email', 'phone', 'created_at', 'message')
     search_fields = ('name',)
     list_filter = ('created_at',)
 
@@ -65,3 +68,39 @@ class SurveyAdmin(admin.ModelAdmin):
         return format_html('<a href="{}">Просмотр заявок</a>', url)
 
     view_responses_link.short_description = "Ответы"
+
+
+@admin.register(GrammarSection)
+class GrammarSectionAdmin(admin.ModelAdmin):
+    list_display = ('title', 'order')
+    search_fields = ('title', 'description')
+    list_editable = ('order',)
+
+@admin.register(GrammarMaterial)
+class GrammarMaterialAdmin(admin.ModelAdmin):
+    list_display = ('title', 'section', 'order', 'created_at')
+    list_filter = ('section', 'created_at')
+    search_fields = ('title', 'description')
+    list_editable = ('order', 'section')
+
+
+@admin.register(Homework)
+class HomeworkAdmin(admin.ModelAdmin):
+    list_display = ('title', 'assigned_to', 'created_at')
+    search_fields = ('title', 'description', 'assigned_to__username')
+    list_filter = ('created_at', 'assigned_to')
+
+
+@admin.register(HomeworkSubmission)
+class HomeworkSubmissionAdmin(admin.ModelAdmin):
+    list_display = ('homework', 'user', 'submitted_at', 'is_checked')
+    search_fields = ('homework__title', 'user__username')
+    list_filter = ('submitted_at', 'is_checked', 'homework', 'user')
+    readonly_fields = ('submitted_at',)
+
+    def mark_as_checked(self, request, queryset):
+        queryset.update(is_checked=True)
+
+    mark_as_checked.short_description = "Отметить выбранные задания как проверенные"
+
+    actions = [mark_as_checked]
