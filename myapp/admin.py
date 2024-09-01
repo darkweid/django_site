@@ -76,6 +76,7 @@ class GrammarSectionAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
     list_editable = ('order',)
 
+
 @admin.register(GrammarMaterial)
 class GrammarMaterialAdmin(admin.ModelAdmin):
     list_display = ('title', 'section', 'order', 'created_at')
@@ -86,17 +87,67 @@ class GrammarMaterialAdmin(admin.ModelAdmin):
 
 @admin.register(Homework)
 class HomeworkAdmin(admin.ModelAdmin):
-    list_display = ('title', 'assigned_to', 'created_at')
+    list_display = ('title', 'display_image', 'assigned_to', 'created_at')
     search_fields = ('title', 'description', 'assigned_to__username')
     list_filter = ('created_at', 'assigned_to')
+
+    def display_image(self, obj):
+        if obj.image:
+            return format_html('<img src="{}"height="200" />', obj.image.url)
+        return "Нет изображения"
+
+    display_image.short_description = 'Изображение'
 
 
 @admin.register(HomeworkSubmission)
 class HomeworkSubmissionAdmin(admin.ModelAdmin):
-    list_display = ('homework', 'user', 'submitted_at', 'is_checked')
+    list_display = ('homework_card', 'user', 'submitted_at', 'is_checked', 'answer_preview')
     search_fields = ('homework__title', 'user__username')
     list_filter = ('submitted_at', 'is_checked', 'homework', 'user')
-    readonly_fields = ('submitted_at',)
+    readonly_fields = ('submitted_at', 'homework_image')
+    fieldsets = (
+        ('Основная информация', {
+            'fields': ('user', 'homework')
+        }),
+        ('Задание', {
+            'fields': ('homework_image',)
+        }),
+        ('Ответ', {
+            'fields': ('answer', 'is_checked')
+        }),
+        ('Мета-информация', {
+            'fields': ('submitted_at',)
+        }),
+    )
+
+    def homework_card(self, obj):
+        homework = obj.homework
+        return format_html(
+            '<div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px;">'
+            '<h3>{}</h3>'
+            '<p>{}</p>'
+            '{}'
+            '</div>',
+            homework.title,
+            homework.description,
+            format_html('<img src="{}" style="max-width: 400px; max-height: 200px;" />',
+                        homework.image.url) if homework.image else ''
+        )
+
+    homework_card.short_description = 'Карточка задания'
+
+    def answer_preview(self, obj):
+        return obj.answer[:100] + '...' if len(obj.answer) > 100 else obj.answer
+
+    answer_preview.short_description = 'Ответ'
+
+    def homework_image(self, obj):
+        homework = obj.homework
+        if homework.image:
+            return format_html('<img src="{}" style="width: 700px;" />', homework.image.url)
+        return 'Нет изображения'
+
+    homework_image.short_description = 'Изображение задания'
 
     def mark_as_checked(self, request, queryset):
         queryset.update(is_checked=True)
