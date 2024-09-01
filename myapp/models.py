@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import EmailValidator
 import uuid
@@ -97,3 +98,67 @@ class ConsultationRequest(models.Model):
     class Meta:
         verbose_name = 'Заявка на консультацию'
         verbose_name_plural = 'Заявки на консультации'
+
+
+class GrammarSection(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Название раздела")
+    description = models.TextField(verbose_name="Описание раздела", blank=True)
+    order = models.PositiveIntegerField(default=0, verbose_name="Порядок отображения")
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Раздел грамматики'
+        verbose_name_plural = 'Разделы грамматики'
+        ordering = ['order', 'title']
+
+
+class GrammarMaterial(models.Model):
+    section = models.ForeignKey(GrammarSection, on_delete=models.CASCADE, related_name='materials',
+                                verbose_name="Раздел")
+    title = models.CharField(max_length=255, verbose_name="Название")
+    description = models.TextField(verbose_name="Описание", blank=True)
+    image = models.ImageField(upload_to='grammar_materials/', verbose_name="Изображение")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    order = models.PositiveIntegerField(default=0, verbose_name="Порядок отображения")
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Грамматический материал'
+        verbose_name_plural = 'Грамматические материалы'
+        ordering = ['section', 'order', 'title']
+
+
+class Homework(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Название")
+    description = models.TextField(verbose_name="Описание", blank=True)
+    image = models.ImageField(upload_to='homework/', verbose_name="Изображение")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    assigned_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assigned_homework')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Домашнее задание'
+        verbose_name_plural = 'Домашние задания'
+        ordering = ['-created_at']
+
+
+class HomeworkSubmission(models.Model):
+    homework = models.ForeignKey(Homework, on_delete=models.CASCADE, related_name='submissions')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='homework_submissions')
+    answer = models.TextField(verbose_name="Ответ")
+    submitted_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата отправки")
+    is_checked = models.BooleanField(default=False, verbose_name="Проверено")
+
+    def __str__(self):
+        return f"Ответ на {self.homework.title} от {self.user.username}"
+
+    class Meta:
+        verbose_name = 'Выполненное домашнее задание'
+        verbose_name_plural = 'Выполненные домашние задания'
+        ordering = ['-submitted_at']
