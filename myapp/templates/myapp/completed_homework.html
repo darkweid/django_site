@@ -11,7 +11,10 @@
                     <p>{{ submission.homework.description }}</p>
                 </div>
             </div>
-            <p>Дата отправки: {{ submission.submitted_at|date:"d.m.Y H:i" }}</p>
+            {#            <p>Дата отправки: {{ submission.submitted_at|date:"d.m.Y H:i " }}</p>#}
+            {% load tz %}  <!-- Подключаем библиотеку для работы с часовыми поясами -->
+            <p>Дата отправки: {{ submission.submitted_at|timezone:"Europe/Moscow"|date:"d.m.Y H:i" }} МСК</p>
+
             <p>Статус: {% if submission.is_checked %}Проверено{% else %}На проверке{% endif %}</p>
             <p>Ваш ответ:</p>
             <pre class="answer-text">{{ submission.answer }}</pre>
