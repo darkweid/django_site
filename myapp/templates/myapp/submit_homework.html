@@ -1,12 +1,14 @@
 {% extends 'base_lk.html' %}
 
 {% block content %}
-<p>{{ homework.description }}</p>
-<img src="{{ homework.image.url }}" alt="{{ homework.title }}">
+    <div class="homework-container">
+        <p>{{ homework.description }}</p>
+        <img src="{{ homework.image.url }}" alt="{{ homework.title }}">
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Отправить ответ</button>
-</form>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Отправить ответ</button>
+        </form>
+    </div>
 {% endblock %}
