@@ -1,10 +1,12 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from .forms import SurveyForm
-from .models import Survey, SurveyResponse, QuestionResponse, Question, ConsultationRequest
+from .forms import SurveyForm, HomeworkSubmissionForm
+from .models import Survey, SurveyResponse, QuestionResponse, Question, ConsultationRequest, HomeworkSubmission, \
+    Homework, GrammarMaterial, GrammarSection
 
 menu = [{'title': 'Про меня', 'url_name': 'about'},
         {'title': 'Контакты', 'url_name': 'contact'},
@@ -109,6 +111,78 @@ def submit_request(request):
         return JsonResponse({"message": "Спасибо, что оставили заявку, я свяжусь с вами в ближайшее время!"})
 
     return JsonResponse({"message": "Ошибка при отправке заявки."}, status=400)
+
+
+@login_required()
+def grammar_sections(request):
+    sections = GrammarSection.objects.all().order_by('order')
+    return render(request, 'myapp/grammar_sections.html', {'sections': sections, 'title': 'Материалы по грамматике'})
+
+
+@login_required()
+def grammar_materials(request, section_id):
+    section = get_object_or_404(GrammarSection, id=section_id)
+    materials_list = section.materials.all().order_by('order')
+
+    paginator = Paginator(materials_list, 1)  # Показывать по 10 материалов на странице #Todo
+    page = request.GET.get('page')
+    materials = paginator.get_page(page)
+
+    return render(request, 'myapp/grammar_materials.html', {
+        'section': section,
+        'materials': materials,
+        'title': section.title
+    })
+
+
+@login_required
+def homework_list(request):
+    # Фильтруем домашние задания, по которым пользователь еще не отправил ответ
+    homework = Homework.objects.filter(assigned_to=request.user).exclude(
+        id__in=HomeworkSubmission.objects.filter(user=request.user).values('homework_id')
+    )
+    context = {
+        'title': 'Домашние задания',
+        'homework': homework,
+    }
+    return render(request, 'myapp/homework_list.html', context=context)
+
+
+@login_required
+def submit_homework(request, homework_id):
+    homework = get_object_or_404(Homework, id=homework_id, assigned_to=request.user)
+
+    if request.method == 'POST':
+        form = HomeworkSubmissionForm(request.POST)
+        if form.is_valid():
+            submission = form.save(commit=False)
+            submission.homework = homework
+            submission.user = request.user
+            submission.save()
+            return redirect('homework_list')
+    else:
+        form = HomeworkSubmissionForm()
+
+    context = {
+        'title': f'Выполнение задания: {homework.title}',
+        'homework': homework,
+        'form': form,
+    }
+    return render(request, 'myapp/submit_homework.html', context=context)
+
+
+@login_required()
+def completed_homework(request):
+    submissions = HomeworkSubmission.objects.filter(user=request.user)
+    homework_ids = submissions.values_list('homework_id', flat=True)
+    completed_homework = Homework.objects.filter(id__in=homework_ids)
+
+    context = {
+        'title': 'Выполненные домашние задания',
+        'submissions': submissions,
+        'completed_homework': completed_homework,
+    }
+    return render(request, 'myapp/completed_homework.html', context=context)
 
 
 def page_not_found(request, exception):
