@@ -1,0 +1,22 @@
+{% extends 'base_lk.html' %}
+
+{% block content %}
+    {% for submission in submissions %}
+        <div class="submission-item">
+            <div class="homework-card">
+                <img src="{{ submission.homework.image.url }}" alt="{{ submission.homework.title }}"
+                     class="homework-image">
+                <div class="homework-details">
+                    <h3>{{ submission.homework.title }}</h3>
+                    <p>{{ submission.homework.description }}</p>
+                </div>
+            </div>
+            <p>Дата отправки: {{ submission.submitted_at|date:"d.m.Y H:i" }}</p>
+            <p>Статус: {% if submission.is_checked %}Проверено{% else %}На проверке{% endif %}</p>
+            <p>Ваш ответ:</p>
+            <pre class="answer-text">{{ submission.answer }}</pre>
+        </div>
+    {% empty %}
+        <p>У вас нет выполненных домашних заданий.</p>
+    {% endfor %}
+{% endblock %}
