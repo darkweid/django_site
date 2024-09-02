@@ -325,6 +325,15 @@ label {
     color: #3f3d54;
 }
 
+input#id_name,
+input#id_contact,
+input#id_location,
+input#id_email {
+    margin-bottom: 10px;
+    width: 30%;
+    min-width: 200px;
+}
+
 .form-input {
     width: 100%;
     padding: 8px;
@@ -354,6 +363,7 @@ button[type="submit"]:hover {
 
 /* Стили для контейнера блока вопроса */
 .question-block {
+    text-align: center;
     border: 1px solid #f3ebe1; /* Цвет и толщина рамки */
     border-radius: 4px; /* Скругление углов */
     padding: 10px; /* Отступ внутри блока */
@@ -370,6 +380,7 @@ button[type="submit"]:hover {
     color: #3f3d54; /* Цвет текста */
     margin-bottom: 5px; /* Отступ снизу */
     display: block; /* Чтобы отступы работали */
+    margin: 0 auto;
 }
 
 /* Стили для описания вопросов */
@@ -380,10 +391,12 @@ button[type="submit"]:hover {
     display: block; /* Чтобы отступы работали */
 }
 
+
 /* Стили для текстового поля */
 .custom-textarea {
     width: 70%;
     min-height: 40px;
+    min-width: 200px;
     height: 40px; /* Устанавливаем фиксированную начальную высоту */
     font-size: 15px;
     resize: none;
@@ -631,9 +644,19 @@ p:empty + p {
     }
 
     .container {
-        margin-left: 0;
+        /*margin-left: 0;*/
         /*padding: 5px;*/
-        width: 90%;
+        margin: 0 auto;
+        padding: 0px;
+        width: 100%;
+    }
+
+    .survey-container{
+        padding: 20px;
+    }
+
+    .question-block {
+        padding: 5px;
     }
 
     .sidebar ul li {
@@ -644,6 +667,7 @@ p:empty + p {
     .review-item, .review-item-video {
         width: 100%; /* Устанавливаем ширину в 100% от родительского контейнера */
     }
+
 }
 
 
