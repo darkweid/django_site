@@ -8,8 +8,15 @@
 
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn">Отправить</button>
+            {% for field in form %}
+                {% if field.name != '' %}
+                    <div class="form-field">
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <button type="submit">Отправить ответ</button>
         </form>
     </div>
 
